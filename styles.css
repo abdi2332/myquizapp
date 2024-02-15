@@ -28,11 +28,16 @@ button{
     cursor: pointer;
     border: none;
 }
+hr{
+    box-sizing: border-box;
+    margin-left: 10px;
+    margin-right: 10px;
+}
 .correct{
     background-color: rgb(72, 228, 72);
 }
 .incorrect{
-    background-color: red;
+    background-color: rgb(213, 142, 142);
 }
 
 #next{

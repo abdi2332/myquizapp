@@ -4,9 +4,10 @@ const button3 = document.getElementById("button3");
 const button4 = document.getElementById("button4");
 const nextButton = document.getElementById("next");
 const text = document.getElementById("text");
-
+let score=0
 nextButton.addEventListener('click', () => {
   updateIndex(1);
+  score++
  
 });
 
@@ -69,6 +70,12 @@ function update(question) {
 
 function updateIndex(offset) {
   currentIndex = (currentIndex + offset + questions.length) % questions.length;
+  if(currentIndex===3){
+    nextButton.innerText = "Restart"
+  }
+  else {
+    nextButton.innerText = "next"
+  }
   update(questions[currentIndex]);
 }
 // Initial display
@@ -86,8 +93,8 @@ function checkAnswer(e){
     selectedAnswer.classList.add("correct")
 
      setTimeout(() => {
-      selectedAnswer.classList.remove("correct");
-    }, 3000);
+      selectedAnswer.classList.remove("correct");   
+    }, 1000);
   }
   else{
     selectedAnswer.classList.add("incorrect")
@@ -95,8 +102,10 @@ function checkAnswer(e){
      setTimeout(() => {
       selectedAnswer.classList.remove("incorrect");
 
-    }, 3000);
+    }, 1000);
   }
+
+
   }
 
 
