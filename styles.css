@@ -25,7 +25,16 @@ button{
     text-align: left;
     margin-left: 15px;
     margin-bottom: 5px;
+    cursor: pointer;
+    border: none;
 }
+.correct{
+    background-color: rgb(72, 228, 72);
+}
+.incorrect{
+    background-color: red;
+}
+
 #next{
     width: 100px;
     text-align: center;
