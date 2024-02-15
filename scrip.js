@@ -1,115 +1,90 @@
-const button1=document.getElementById("button1")
-const button2=document.getElementById("button2")
-const button3=document.getElementById("button3")
-const button4=document.getElementById("button4")
-const nextButton=document.getElementById("next")
-const text = document.getElementById("text")
+const button1 = document.getElementById("button1");
+const button2 = document.getElementById("button2");
+const button3 = document.getElementById("button3");
+const button4 = document.getElementById("button4");
+const nextButton = document.getElementById("next");
+const text = document.getElementById("text");
 
-
-nextButton.onclick= nextQuestion
-
-const questions=[
-    {
-        name:"question1",
-        "button question": ["Abdulhadi", "neima", "etete","chaltu"],
-         text: "What is my name"
-    },
-    {
-        name:"question2",
-        "button question": ["Go to store", "Go to cave", "Fight dragon","fight me"],
-         text: "where o you want "
-    },
-    {
-        name:"question3",
-        "button question": ["Go to store", "Go to cave", "Fight dragon","fight her"],
-         text: "where do  want to go"
-    },
-    {
-        name:"question4",
-        "button question": ["Go to store", "Go to cave", "Fight dragon", "fight anyone"],
-         text: "where do you want to go"
-    },
-]
-
-let currentindex=questions[0]
-
-
-function update(questions){
-
-    button1.innerText=questions["button question"][0]
-    button2.innerText=questions["button question"][1]
-    button3.innerText=questions["button question"][2]
-    button4.innerText=questions["button question"][3]
-    text.innerText=questions.text
-}
-
-
-function nextQuestion(){
-   update(questions[1])
-}
-
-
-function updateIndex(offset) {
-    currentindex = (currentindex + offset + data.length) % data.length;
-    update(questions[currentindex])
-}
-
+let answer; // Declare answer variable outside the update function
 
 nextButton.addEventListener('click', () => {
-    updateIndex(1);
-  });
+  updateIndex(1);
+});
 
+const questions = [
+  {
+    name: "question1",
+    buttonAnswers: [
+        {answer:"Abdulhadi",correct:true},
+        {answer:"neima",correct:false},
+        {answer:"etete",correct:false},
+        {answer:"chaltu",correct:false}
+    ],
+    text: "What is my name"
+  },
+  {
+    name: "question2",
+    buttonAnswers: [
+        {answer:"Abdulhadi",correct:true},
+        {answer:"Go to store",correct:false},
+        {answer:"etete",correct:false},
+        {answer:"Fight dragon",correct:true}
+    ],
+    text: "where do you want "
+  },
+  {
+    name: "question3",
+    buttonAnswers: [
+        {answer:"Abdulhadi",correct:true},
+        {answer:"Go to blackmamba",correct:false},
+        {answer:"chaltu",correct:false},
+        {answer:"Fight dragon",correct:true}
+    ],
+    text: "where do you want to go"
+  },
+  {
+    name: "question4",
+    buttonAnswers: [
+        {answer:"Abdulhadi",correct:true},
+        {answer:"Go to store",correct:false},
+        {answer:"go to italy",correct:false},
+        {answer:"die",correct:true}
+    ],
+    text: "where do you want to go"
+  },
+];
 
+let currentIndex = 0;
 
+function update(question) {
+  button1.innerText = question.buttonAnswers[0].answer;
+  button2.innerText = question.buttonAnswers[1].answer;
+  button3.innerText = question.buttonAnswers[2].answer;
+  button4.innerText = question.buttonAnswers[3].answer;
+  text.innerText = question.text;
 
+  for(let i=0; i<4; i++){
+    if(question.buttonAnswers[i].correct){
+     answer = question.buttonAnswers[i].answer; // Assign correct answer to answer variable
+    }
+  }
+}
 
+function updateIndex(offset) {
+  currentIndex = (currentIndex + offset + questions.length) % questions.length;
+  update(questions[currentIndex]);
+}
 
+// Initial display
+update(questions[currentIndex]);
 
+document.querySelectorAll(".buttons").forEach(button => {
+  button.addEventListener("click", checkAnswer);
+});
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// const data = [
-//     { name: 'Alice', age: 25 },
-//     { name: 'Bob', age: 30 },
-//     { name: 'Charlie', age: 35 }
-//   ];
-
-//   let currentIndex = 0;
-//   const output = document.getElementById('output');
-
-//   function displayData(index) {
-//     const person = data[index];
-//     output.innerHTML = `<p>Name: ${person.name}, Age: ${person.age}</p>`;
-//   }
-
-//   function updateIndex(offset) {
-//     currentIndex = (currentIndex + offset + data.length) % data.length;
-//     displayData(currentIndex);
-//   }
-
-//   document.getElementById('nextButton').addEventListener('click', () => {
-//     updateIndex(1);
-//   });
-
-//   // Initial display
-//   displayData(currentIndex);
+function checkAnswer(e){
+  const selectedAnswer=e.target.innerText; // Use innerText to get the text of the selected button
+  if(selectedAnswer === answer){
+    e.target.classList.add("style"); // Add style class to the selected button
+  }
+}
